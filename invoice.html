@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Invoice</title>
+
+        <!-- Kits for Icon -->
+        <script src="https://kit.fontawesome.com/57f60575d2.js" crossorigin="anonymous"></script>
+        <!-- Kits for Icon -->
+
+        <!-- Kits for fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Londrina+Sketch&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <!-- Kits for font -->
+
+        <style>
+            body {
+                background: linear-gradient(to bottom, burlywood, #FFFFFF);
+                font-family: 'Lato', sans-serif;
+                color: #333;
+                text-align: center;
+                padding: 20px;
+                background-repeat: no-repeat;
+            }
+
+            h1 {
+                color: white;
+                margin-bottom: 30px;
+            }
+
+            #invoiceDetails {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+                display: inline-block;
+                width: 50%;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            li {
+                margin: 10px 0;
+            }
+
+            h2, h3 {
+                color: #2F3487;
+            }
+
+            #box1 {
+                font-family: "Dancing Script", cursive;
+                padding: 1px;
+                width: 99%;
+                height: 20px;
+                margin: 0px;
+                font-size: 75px;
+                animation: sliding;
+                animation-duration: 7s;
+                animation-timing-function: ease-in-out;
+            }
+
+            @keyframes sliding {
+                from { margin-left: 100%; }
+                to { margin-left: 0%; }
+            }
+
+            .highlight {
+                text-shadow: 5px 5px 20px #2F3487;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img src="images/logo.png" alt="logo" width="200px" height="200px" style="padding: 5px;">
+
+        <div id="box2">
+            <center>
+                <i class="fa-brands fa-instagram"></i>&nbsp;
+                <i class="fa-brands fa-twitter"></i> GlamGlaze
+                <i class="fa-solid fa-phone"></i> 876-123-4567
+                <i class="fa-solid fa-location-dot"></i> 237 Old Hope Road, Kingston
+            </center>
+        </div>
+
+        <div id="box1">
+            <center>
+                <i class="fa-solid fa-glasses"></i>
+                <span class="highlight"> GlamGlaze </span> 
+                <i class="fa-solid fa-glasses"></i>
+            </center>
+        </div>
+
+        <br><br><br>
+
+        <h1>Invoice</h1>
+        <div id="invoiceDetails"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Retrieve selected products from localStorage
+                const selectedProducts = JSON.parse(localStorage.getItem('selectedProducts'));
+        
+                if (selectedProducts) {
+                    let invoiceContent = `<h2>Selected Items:</h2><ul>`;
+                    let totalPrice = 0;
+        
+                    // Loop through the selected products and sum their prices
+                    selectedProducts.forEach(item => {
+                        invoiceContent += `<li>${item.name}: $${item.price.toFixed(2)}</li>`;
+                        totalPrice += item.price;
+                    });
+        
+                    // Calculate GCT Tax (15%)
+                    const gctTax = totalPrice * 0.15;
+                    const finalTotal = totalPrice + gctTax;
+        
+                    // Get the current date for the purchase
+                    const currentDate = new Date();
+                    const formattedDate = currentDate.toLocaleDateString('en-GB'); // Format as DD/MM/YYYY
+        
+                    // Append the GCT tax, final total, and date of purchase to the invoice
+                    invoiceContent += `</ul>
+                                       <h3>Total Price: $${totalPrice.toFixed(2)}</h3>
+                                       <h3>GCT Tax (15%): $${gctTax.toFixed(2)}</h3>
+                                       <h2>Final Total: $${finalTotal.toFixed(2)}</h2>
+                                       <h3>Date of Purchase: ${formattedDate}</h3>`;
+        
+                    // Display the invoice content
+                    document.getElementById('invoiceDetails').innerHTML = invoiceContent;
+                } else {
+                    document.getElementById('invoiceDetails').innerHTML = '<p>No items selected.</p>';
+                }
+            });
+        </script>
+        
+
+        <br><br>
+
+        <center>Thanks for shopping with us!</center>
+
+        <div id="box2">
+            <center>
+                We accept <i class="fa-brands fa-cc-visa"></i> <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-cc-amex"></i> <i class="fa-brands fa-apple-pay"></i>
+                GlamGlaze <i style="font-size: small;" class="fa-solid fa-trademark"></i>
+            </center>
+        </div>
+
+           <a href="index.html">Home</a>
+           <br>
+
+           <div id="box1">
+            <center>
+                <i class="fa-solid fa-eye"></i> 
+                <span class="highlight"> See the world in style </span>
+                <i class="fa-solid fa-eye"></i>
+            </center>
+        </div>
+
+    </body>
+</html>
